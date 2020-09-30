@@ -1,0 +1,25 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Docker login
+        run: echo ${GITHUB_TOKEN} | docker login https://docker.pkg.github.com -u BMarcin --password-stdin
+        env:
+          GITHUB_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+      
+      - name: Docker build
+        run: docker build --pull -f Dockerfile -t docker.pkg.github.com/bmarcin/docker-windows-cython/builder:${GITHUB_REF##*/} .
+        
+      - name: Docker publish
+        run: docker push docker.pkg.github.com/bmarcin/docker-windows-cython/builder:${GITHUB_REF##*/}
