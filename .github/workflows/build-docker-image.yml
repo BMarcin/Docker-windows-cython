@@ -14,13 +14,13 @@ jobs:
         uses: actions/checkout@v2
         
       - name: Docker login
-        run: docker login https://docker.pkg.github.com -u "{$DOCKER_USER}" -p "{$DOCKER_PASSWORD}"
+        run: docker login https://docker.pkg.github.com -u bmarcin -p "{$DOCKER_PASSWORD}"
         env:
           DOCKER_USER: ${{ secrets.DOCKER_USER }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       
       - name: Docker build
-        run: docker build --pull -f Dockerfile -t docker.pkg.github.com/bmarcin/docker-windows-cython/builder:${GITHUB_REF##*/} .
+        run: docker build --pull -f Dockerfile -t docker.pkg.github.com/bmarcin/docker-windows-cython/builder:latest .
         
       - name: Docker publish
-        run: docker push docker.pkg.github.com/bmarcin/docker-windows-cython/builder:${GITHUB_REF##*/}
+        run: docker push docker.pkg.github.com/bmarcin/docker-windows-cython/builder:latest
