@@ -8,6 +8,7 @@ on:
 jobs:
   Build_python_36:
     runs-on: windows-latest
+    container: mcr.microsoft.com/windows/servercore:1809
 
     steps:
       - name: Checkout code
