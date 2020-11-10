@@ -8,11 +8,13 @@ on:
 jobs:
   Build_python_36:
     runs-on: windows-latest
-    container: mcr.microsoft.com/windows/servercore:1809
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Make dir
+        run: mkdir C:\BuildTools
 
       - name: Build
         run: docker build -f p36.Dockerfile . -t testbuild:latest
