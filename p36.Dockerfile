@@ -2,11 +2,9 @@ FROM python:3.6-windowsservercore-1809
 
 SHELL ["cmd", "/S", "/C"]
 
-RUN mkdir C:\TEMP
+ADD https://aka.ms/vs/16/release/vs_buildtools.exe vs_buildtools.exe
 
-ADD https://aka.ms/vs/16/release/vs_buildtools.exe C:\TEMP\vs_buildtools.exe
-
-RUN C:\TEMP\vs_buildtools.exe --quiet --wait --norestart --nocache  \
+RUN vs_buildtools.exe --quiet --wait --norestart --nocache  \
 	--add Microsoft.VisualStudio.Workload.MSBuildTool \ 
 	--add Microsoft.VisualStudio.Workload.VCTools \
 	--add Microsoft.VisualStudio.Workload.UniversalBuildTools \
